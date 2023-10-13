@@ -1,0 +1,1103 @@
+@charset "utf-8";
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+img {
+  width: 100%;
+  vertical-align: bottom;
+}
+
+/* body */
+body {
+  font-family: "Noto Serif JP", serif;
+  font-size: 3.125vw; /*windowの横幅いっぱい（100を基準）に対して3.125*/
+}
+
+h2 {
+  padding: 20px 0 0;
+  margin: 0;
+  font-size: 6.5vw;
+}
+
+@media (min-width: 768px) {
+  body {
+    font-size: 1vw;
+  }
+
+  /*見出しのフォントサイズ*/
+  @media (min-width: 768px) {
+    .about-company h2,
+    .gallery h2,
+    aside h2,
+    .owner h2 {
+      font-size: min(4vw, 40px);
+    }
+  }
+}
+
+/* header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.726);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  min-height: 60px;
+  padding: 10px;
+}
+
+.logo {
+  height: auto;
+  width: 10%;
+  margin-left: 10px;
+  min-width: 45px;
+}
+
+@media (min-width: 768px) {
+  .logo {
+    max-width: 110px;
+    padding: 10px 0 10px 10px;
+  }
+
+  .header {
+    padding: 10px 60px;
+  }
+}
+
+/* ハンバーガーメニュー*/
+#g-nav {
+  position: fixed; /*position:fixed;にし、z-indexの数値を大きくして前面へ*/
+  z-index: 999;
+  /*ナビのスタート位置と形状*/
+  top: -120%;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: #f9f5edd5;
+  transition: all 0.6s;
+}
+
+@media (min-width: 768px) {
+  #g-nav {
+    display: flex; /*親要素にいうことで子要素を右寄りに配置*/
+    justify-content: flex-end;
+    top: 0;
+    height: auto;
+    background: transparent; /*ナビの背景色を透明に*/
+    position: static; /*#g-nav に適用されている position: fixed; を上書き*/
+    transition: none;
+  }
+}
+
+/*アクティブクラスがついたら位置を0に*/
+#g-nav.panelactive {
+  top: 0;
+}
+
+/*ナビゲーションの縦スクロール*/
+#g-nav.panelactive #g-nav-list {
+  position: fixed;
+  z-index: 999;
+  width: 100%;
+  height: 100vh;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#g-nav ul {
+  /*ナビゲーション天地中央揃え*/
+  top: 20%;
+  left: 20%;
+  font-size: 20px;
+}
+
+@media (min-width: 768px) {
+  #g-nav ul {
+    width: 100%;
+    height: auto;
+    font-size: 20px;
+    justify-content: flex-end;
+    display: flex;
+  }
+}
+
+/*リストのレイアウト*/
+#g-nav li {
+  list-style: none;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+}
+
+#g-nav li a {
+  color: #323131;
+  text-decoration: none;
+  padding: 10px;
+  display: block;
+  text-transform: uppercase; /*テキストを大文字に*/
+  letter-spacing: 0.1em;
+  font-weight: bold;
+}
+
+#g-nav li a:hover {
+  color: #a37c4b;
+}
+
+@media (min-width: 768px) {
+  #g-nav li a {
+    letter-spacing: 0.1em;
+    font-size: 20px;
+    padding: 13px;
+  }
+}
+
+/* ハンバーガーメニューボタン */
+.openbtn {
+  position: relative;
+  z-index: 9999; /*ボタンを最前面に*/
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+}
+
+@media (min-width: 768px) {
+  .openbtn {
+    display: none;
+  }
+}
+
+/*×に変化*/
+.openbtn span {
+  display: inline-block;
+  transition: all 0.4s;
+  position: absolute;
+  left: 14px;
+  height: 3px;
+  border-radius: 2px;
+  background-color: #666;
+  width: 45%;
+}
+
+/* ボタンが三本線のとき */
+.openbtn span:nth-of-type(1) {
+  top: 15px;
+}
+
+.openbtn span:nth-of-type(2) {
+  top: 23px;
+}
+
+.openbtn span:nth-of-type(3) {
+  top: 31px;
+}
+
+/* ボタンがバツ印のとき */
+.openbtn.close span:nth-of-type(1) {
+  top: 18px;
+  left: 18px;
+  transform: translateY(6px) rotate(-45deg);
+  width: 30%;
+}
+
+.openbtn.close span:nth-of-type(2) {
+  opacity: 0;
+}
+
+.openbtn.close span:nth-of-type(3) {
+  top: 30px;
+  left: 18px;
+  transform: translateY(-6px) rotate(45deg);
+  width: 30%;
+}
+
+/* スライドショー */
+.slick-slider {
+  position: relative;
+}
+
+.slick-slider img {
+  width: 100%;
+  height: 130vw;
+  object-fit: cover;
+  filter: brightness(120%);
+}
+
+@media (min-width: 768px) {
+  .slick-slider img {
+    height: 120vh;
+  }
+}
+
+.slick-slide {
+  height: 200px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* main */
+main {
+  width: 100%;
+}
+
+.lead {
+  padding-bottom: 30px;
+}
+
+.lead h1 {
+  color: #9f742a;
+  margin-top: 60px;
+  text-align: center;
+  font-size: min(6vw, 40px);
+}
+
+.lead p {
+  line-height: 1.7em;
+  text-align: left;
+  padding: 1em 0 0 0;
+  font-size: min(4.5vw, 20px);
+  width: 90%;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .lead h1 {
+    margin-top: 80px;
+    text-align: center;
+    font-size: 2.5em;
+  }
+  .lead p {
+    text-align: center;
+    line-height: 1.7em;
+    padding: 20px 20px 0 20px;
+    font-size: 1.3em;
+  }
+}
+
+/* ボタンここから */
+.button {
+  margin: 40px auto 60px;
+  width: clamp(200px, 40%, 300px);
+}
+
+a.btn_02 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+  border: 0.5px solid #000;
+  box-sizing: border-box;
+  width: 100%;
+  height: auto;
+  padding: 0.5em 6% 0.5em 12%;
+  color: #000;
+  font-size: 1em;
+  text-align: left;
+  text-decoration: none;
+  position: relative;
+  transition-duration: 0.2s;
+}
+a.btn_02:hover {
+  background: #9f742a;
+  color: #fff;
+}
+a.btn_02:before {
+  content: "";
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 7px 0 7px 8px;
+  border-color: transparent transparent transparent #9f742a;
+  position: absolute;
+  top: 50%;
+  left: 6%;
+  margin-top: -7px;
+}
+a.btn_02:hover:before {
+  border-color: transparent transparent transparent #ffffff;
+}
+
+/* ボタンここまで */
+
+/* about company */
+.about-company {
+  width: 100%;
+  padding-bottom: 8px;
+  background: #f9f5ed;
+}
+
+.about-company img {
+  width: 60%;
+  display: block;
+  margin: 40px auto 0;
+}
+
+.about-company h3 {
+  margin: 0;
+  font-weight: 35px;
+  padding: 20px 0 5px;
+  text-align: center;
+  font-size: 1.5em;
+}
+
+.about-company p {
+  margin: 0;
+  padding: 0 30px 0 30px;
+  text-align: center;
+  font-size: min(4vw, 15px);
+  line-height: 1.5em;
+}
+
+.feature-container {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.feature-container a {
+  text-decoration: none;
+}
+
+.feature-container a:visited {
+  color: #000;
+}
+
+.feature {
+  width: 100%;
+  /* border: 1px solid #000;
+  padding: 20px; */
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .feature-container {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+  }
+
+  .feature {
+    width: 70%;
+  }
+}
+
+/* gallery */
+.gallery {
+  background-image: url(../img/b001.gif);
+  margin: 0 auto;
+  padding: 0 0 8px 0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  width: 100%;
+}
+
+.gallery .text p {
+  text-align: center;
+  margin: 0 auto;
+  padding: 0 0 1em 0;
+  /* padding: 10px 15px 20px 15px; */
+  width: 90%;
+  font-size: min(4vw, 15px);
+}
+
+.grid-container {
+  width: 90%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.grid-container .item {
+  overflow: hidden; /* 画像がはみ出さないようにする */
+  aspect-ratio: 1 / 1; /* アイテムを正方形にする*/
+}
+
+.grid-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.5s, opacity 1.5s;
+}
+
+.item:hover img {
+  transform: scale(1.3);
+  opacity: 0.7;
+  transition: transform 1.5s, opacity 1.5s;
+}
+
+.item:hover .item-description {
+  opacity: 1;
+}
+
+/*下から説明文*/
+.item {
+  position: relative;
+  /* overflow: hidden; */
+}
+
+.item .mask {
+  width: 100%;
+  height: 40%; /*文字の大きさにより高さが変わってしまうので、設定。*/
+  position: absolute;
+  bottom: -100%; /* 枠の上に置いて表示させない */
+  left: 0;
+  background: rgba(255, 255, 255, 0.899);
+  -webkit-transition: all 0.6s ease;
+  transition: all 0.6s ease;
+}
+.item:hover .mask {
+  bottom: 0; /* 上に上がってくるように見せる */
+}
+
+/*アイテム内の説明 */
+.item-description p:nth-child(1) {
+  color: rgb(197, 173, 54);
+  font-size: 1.5em;
+  text-align: center;
+  margin: 0;
+  padding: 1em 0 0;
+}
+
+.item-description p:nth-child(2) {
+  color: #000;
+  font-size: 1em;
+  margin: 0;
+  padding: 0.5em 0 0;
+}
+
+.item-description p:nth-child(3) {
+  color: #000;
+  font-size: 1.3em;
+  margin: 0;
+  padding: 0.5em 0 0;
+}
+
+/*ここだけ、スマホ画面にメディアクエリ*/
+@media (max-width: 768px) {
+  .item-description p:nth-child(1) {
+    font-size: 0.8em;
+    padding: 1em 0 0 0;
+  }
+
+  .item-description p:nth-child(2) {
+    display: 0.6em;
+    padding: 0.5em 0 0 0;
+  }
+
+  .item-description p:nth-child(3) {
+    font-size: 0.8em;
+    padding: 0.5em 0 0 0;
+  }
+
+  .item .mask {
+    height: 50%; /*文字の大きさにより高さが変わってしまうので、スマホ画面にも設定。*/
+  }
+}
+
+@media (min-width: 768px) {
+  .grid-container {
+    width: 90%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+/* 全てのギャラリーをみる */
+.gallery p {
+  text-align: center;
+  margin-top: 1em;
+  font-size: 1em;
+}
+
+.gallery p a {
+  color: #333;
+  text-decoration: none;
+  /* border: 1px solid rgb(144, 63, 13);
+  background: white; */
+}
+
+.gallery p a:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* aside */
+
+aside {
+  height: auto;
+  margin: 0 auto;
+  width: 100%;
+  background: #f9f5ed;
+}
+
+aside p {
+  font-size: min(4vw, 15px);
+  color: #4b3621;
+  text-align: center;
+  width: 80%;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+aside dl {
+  width: 80%;
+  margin: 20px auto;
+}
+
+aside dl dt {
+  font-weight: bold;
+  font-size: min(4vw, 15px);
+  color: #4b3621;
+  margin-bottom: 5px;
+  padding: 0 20px 0 0;
+  border-bottom: 2px solid rgb(206, 194, 194);
+}
+
+aside dl dd {
+  font-size: min(4vw, 15px);
+  color: #4b3621;
+  margin-bottom: 15px;
+  padding-top: 10px;
+}
+
+.know {
+  font-family: sans-serif;
+  font-size: 0.5em;
+  font-weight: 100;
+  background: #151515;
+  color: #fff;
+  text-decoration: none;
+  list-style: none;
+  padding: 2px;
+  display: inline-block;
+  margin: 0 0 0 10px;
+}
+
+/* 広告バナー */
+.buner {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: 0;
+  padding-bottom: 5em;
+  width: 100%;
+}
+
+.buner img {
+  width: 90%;
+  display: block;
+  margin: 0 auto;
+  display: flex;
+}
+
+.buner-img1 {
+  width: 90%;
+  margin: 0 auto;
+  padding: 20px 0 20px 0;
+}
+
+.buner-img1 a:hover {
+  opacity: 0.7;
+}
+
+/* 以下のスタイルを修正 */
+@media screen and (min-width: 768px) {
+  aside {
+    width: 100%;
+  }
+
+  .aside-flex-container {
+    display: flex;
+    justify-content: center;
+    width: 90%;
+    margin: 0 auto;
+    gap: 10px;
+  }
+
+  .aside-container {
+    width: 100%;
+    padding: 0;
+  }
+
+  aside dl {
+    display: flex;
+    flex-wrap: wrap; /*flexで横に並んでしまったdtとddを折り返す*/
+    width: 85%;
+    margin: 0 auto;
+  }
+
+  aside dl dt {
+    flex-basis: 30%; /* flexアイテムを任意の大きさにする。幅を30%に変更 */
+    border-bottom: 2px solid rgb(206, 194, 194);
+    display: flex; /* dtにflexboxを適用 */
+    align-items: center; /* テキストを縦方向の中央に配置 */
+    justify-content: flex-end;
+    margin: 0;
+    padding: 10px;
+    font-size: min(1.3vw, 20px);
+  }
+
+  aside dl dd {
+    flex-basis: 70%; /* 幅を70%に変更 */
+    border-bottom: none; /* ddのborderを削除 */
+    display: flex; /* ddにflexboxを適用 */
+    align-items: center; /* テキストを縦方向の中央に配置 */
+    justify-content: flex-start;
+    border-bottom: 2px solid rgb(206, 194, 194);
+    margin: 0;
+    padding: 10px;
+    font-size: min(1.4vw, 20px);
+  }
+
+  .buner {
+    display: flex;
+    width: 40%;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .buner a:hover {
+    opacity: 0.7;
+  }
+
+  .buner img {
+    margin: 0;
+  }
+
+  .buner-img1 {
+    width: 90%;
+    margin: 0 auto;
+    padding: 30px 0 20px 0;
+  }
+}
+
+/* オーナーの声 */
+.owner {
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  width: 100%;
+  padding: 0 0 30px 0;
+  color: #f6f3ef;
+  background-image: url(../img/b001.gif);
+  margin: 0;
+}
+
+.origin-container {
+  width: 90%;
+  margin: 0 auto;
+  background: #988268;
+}
+
+.owner h2 {
+  color: #000;
+}
+
+.owner img {
+  margin: 0 auto;
+}
+
+/* テキスト */
+
+.voice {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.owner p {
+  text-align: left;
+}
+
+.voice p:nth-child(1) {
+  font-size: min(7vw, 40px);
+  margin-bottom: 0;
+  padding-top: 0.5em;
+}
+
+.voice p:nth-child(2) {
+  font-size: min(3vw, 15px);
+  margin-top: 0;
+}
+
+.voice p:nth-child(3) {
+  font-size: min(5vw, 20px);
+  padding: 0.7em 0 0 0;
+}
+
+.voice p:nth-child(4) {
+  font-size: min(4vw, 15px);
+  padding-bottom: 2em;
+}
+
+@media screen and (min-width: 768px) {
+  .origin-container {
+    width: 80%;
+  }
+
+  .owner img {
+    width: 50%;
+  }
+
+  .voice {
+    width: 50%;
+  }
+
+  .origin1,
+  .origin2 {
+    width: 100%;
+    display: flex;
+  }
+
+  .origin1 {
+    flex-direction: row;
+  }
+
+  .origin2 {
+    flex-direction: row-reverse;
+  }
+
+  .voice {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 30px;
+  }
+
+  .voice p:nth-child(1) {
+    font-size: 3vw;
+    margin-bottom: 0;
+    padding-top: 0.5em;
+  }
+
+  .voice p:nth-child(2) {
+    font-size: 0.9vw;
+    margin-top: 0;
+  }
+
+  .voice p:nth-child(3) {
+    font-size: 2vw;
+    padding: 1.1em 0 0.5em 0;
+  }
+
+  .voice p:nth-child(4) {
+    padding-bottom: 2em;
+    font-size: min(1.3vw, 20px);
+  }
+}
+
+/* 購入までの流れなど */
+.other {
+  width: 100%;
+  height: auto;
+  margin: 0; /*これをしないと、謎の余白が下にできる。*/
+  background-image: url(../img/b001.gif);
+  padding-bottom: 50px;
+}
+
+.flex-container {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  gap: 1em;
+}
+
+@media screen and (min-width: 768px) {
+  .flex-container {
+    width: 80%;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.common-link {
+  position: relative;
+  width: 100%;
+}
+
+.common-link img {
+  width: 100%; /*親要素common-linkに対して100%*/
+  height: 10em;
+  filter: brightness(60%);
+  display: block; /*これをしないと、margin:0 auto;が効かない*/
+  /* margin: 1em auto; */
+  position: relative;
+  object-fit: cover; /*これで、画像が潰れるの防止できた。*/
+}
+
+.common-link p {
+  position: absolute;
+  top: 40%;
+  color: #fff;
+  text-decoration: none;
+  list-style: none;
+  z-index: 1;
+  font-size: 1.5em;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+}
+
+.flex-container a:hover {
+  opacity: 0.7;
+}
+
+.flex-container a {
+  width: 100%;
+  display: block;
+}
+
+@media screen and (min-width: 768px) {
+  .common-link {
+    width: 100%;
+  }
+
+  .flex-container a {
+    width: calc(50% - 1em);
+  }
+}
+
+/* footer */
+footer {
+  background: #efdcb5;
+  padding: 30px 0;
+  width: 100%;
+  margin: 0;
+}
+
+footer .left {
+  width: 90%;
+  margin: 0 auto;
+}
+
+footer .left h3 {
+  font-size: 6vw;
+  color: #473b2f;
+  text-align: center;
+}
+
+footer .left p {
+  font-size: min(4vw, 15px);
+  text-align: center;
+  padding-top: 0.5em;
+}
+
+@media (min-width: 768px) {
+  footer .left h3 {
+    font-size: min(3vw, 30px);
+  }
+
+  footer .left p {
+    font-size: min(1.5vw, 13px);
+  }
+}
+
+/* 電話番号 */
+.tel p:nth-child(1) {
+  font-size: min(5vw, 40px);
+  color: #473b2f;
+  margin: 0;
+  text-align: center;
+  padding: 0.5em 0 0 0;
+}
+
+.tel p:nth-child(2) {
+  font-size: min(3.5vw, 20px);
+  text-align: center;
+}
+
+/* お問合せフォーム */
+.tel-mail {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: #000 solid 1px;
+}
+
+.mail-link {
+  display: inline-block;
+  margin: 2em 0 2em 0;
+  width: min(70%, 350px);
+  text-decoration: none;
+  color: inherit;
+}
+
+.mail {
+  text-align: center;
+  border: #918a8a solid 0.5px;
+  background: #fff;
+  padding: 1.2em;
+  font-size: 1.1em;
+  width: 100%; /* 変更：親要素に対して100%にする */
+  margin: 0 auto;
+  transition: background-color 0.3s ease, color 0.3s ease; /* アニメーションの遷移をスムーズにする */
+}
+
+.mail-link:hover .mail {
+  color: #fff;
+  background-color: #473b2f; /* ホバー時に背景色を変更する */
+}
+
+.mail-link:visited .mail i.fa-envelope {
+  color: black;
+}
+
+.mail-link:hover .mail i.fa-envelope {
+  color: #fff; /* ホバー時にアイコンの色を変更する */
+}
+
+@media (min-width: 768px) {
+  .tel p:nth-child(1) {
+    font-size: 3em;
+  }
+
+  .tel p:nth-child(2) {
+    font-size: 1.2em;
+    text-align: center;
+  }
+
+  .tel {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .tel-mail {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    /* gap: 3vw; */
+    padding-bottom: 2vw;
+    width: 100%;
+  }
+
+  .mail-link {
+    width: min(70%, 350px);
+    font-size: 1.5vw;
+    display: block;
+  }
+
+  .mail {
+    text-align: center;
+    border: #918a8a solid 0.5px;
+    background: #fff;
+    padding: 1.2em;
+    font-size: 1.1em;
+    width: 100%; /* 変更：親要素に対して100%にする */
+    margin: 0 auto;
+    transition: background-color 0.3s ease, color 0.3s ease; /* アニメーションの遷移をスムーズにする */
+  }
+}
+
+/* footerのメニュー */
+footer .footer-menu {
+  text-align: center;
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+
+footer .footer-menu ul {
+  display: flex;
+  width: 90%;
+  margin: 0 auto;
+  justify-content: center;
+  gap: 0.5em;
+}
+
+/* メニューの項目 */
+footer .footer-menu ul li {
+  display: inline-block;
+  margin-right: 5px;
+}
+
+/* メニューのリンク */
+footer .footer-menu ul li a {
+  font-size: 1em;
+  color: #473b2f;
+  text-decoration: none;
+}
+
+footer .footer-menu ul li a:hover {
+  color: #a37c4b;
+}
+
+/* アイコン */
+.icon-img {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+  margin: 1em auto;
+}
+
+.icon-img a {
+  text-decoration: none;
+  list-style: none;
+  transition: transform 0.3s ease; /* アニメーションの遷移をスムーズに */
+}
+
+.icon-img a:hover {
+  transform: scale(1.2); /* ホバー時にアイコンのサイズを1.2倍にする */
+  opacity: 0.8; /* ホバー時にアイコンの透明度を変更する（オプション） */
+}
+
+.icon-img a:visited {
+  color: #151515;
+}
+
+/* コピーライト */
+.footer-menu p {
+  font-size: 0.9em;
+  color: #473b2f;
+  width: 100%;
+  padding: 1em 0 0 0;
+}
+
+@media (min-width: 768px) {
+  footer .footer-menu {
+    font-size: 1.5vw;
+  }
+
+  .icon-img {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    gap: 2em;
+    margin: 1em auto;
+  }
+
+  .footer-menu p {
+    font-size: min(1.5vw, 15px);
+  }
+}
+
+/* ふわっと上がるスタイル（フェードイン）*/
+.fadein {
+  opacity: 0;
+  transition: 1s;
+  transform: translateY(100px); /*はじまりを少しさげる*/
+}
+
+.fadein a:hover {
+  opacity: 0.7;
+}
+
+.active {
+  opacity: 1; /*activeというクラス名が追加されたら、opacity1*/
+  transform: translateY(0);
+}
